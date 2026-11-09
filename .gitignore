@@ -28,3 +28,5 @@ kit/renderd/build/
 kit/renderd/protocol/*-protocol.c
 kit/renderd/protocol/*-client-protocol.h
 kit/tools/.font-cache/
+# app.json "assets": build.py downloads these on every build (SHA-256 checked)
+apps/doom/*.wad
