@@ -2,19 +2,155 @@
   "schema": 1,
   "apps": {
     "path": "apps/*",
+    "ambient_config": {
+      "texts": {
+        "zh-CN": {
+          "title": "氛围灯配置",
+          "description": "氛围灯颜色：在这里直接设定，或让每种驾驶模式各选一种"
+        }
+      }
+    },
+    "brake_test": {
+      "texts": {
+        "zh-CN": {
+          "title": "制动测试",
+          "description": "100-0 与 200-0 刹车距离、峰值减速度和刹车热衰减记录"
+        }
+      }
+    },
+    "car_vitals": {
+      "texts": {
+        "zh-CN": {
+          "title": "M 车况监测",
+          "description": "发动机、热管理、进气/燃油/点火、轮胎与底盘的实时仪表"
+        }
+      }
+    },
+    "doom": {
+      "texts": {
+        "zh-CN": {
+          "title": "毁灭战士",
+          "description": "车机上的 Doom（Freedoom：第一章）。主菜单含全部设置；游戏全屏满分辨率绘制，支持控制器；BACK 返回菜单并保存"
+        }
+      }
+    },
+    "draggy": {
+      "texts": {
+        "zh-CN": {
+          "title": "加速计时",
+          "description": "0-100、100-200 与四分之一英里计时，记录最佳成绩"
+        }
+      }
+    },
+    "dtc_scanner": {
+      "texts": {
+        "zh-CN": {
+          "title": "故障扫描",
+          "description": "读取并清除各控制单元的故障存储，以及当前的车况检查提示"
+        }
+      }
+    },
+    "dyno": {
+      "texts": {
+        "zh-CN": {
+          "title": "虚拟马力机",
+          "description": "全油门拉一次，得出功率与扭矩曲线，可保存对比"
+        }
+      }
+    },
+    "edrive": {
+      "texts": {
+        "zh-CN": {
+          "title": "电驱",
+          "description": "真实纯电续航、电池实时功率、电芯与空调功率、高压电池健康（SOH）与电量、上次充电、充电记录、12V 电池（电量、电压、工作状态、能量回收、历史）以及主屏小组件；48V 轻混车型还显示 48V 电池与 DC/DC 变换器"
+        }
+      }
+    },
+    "gforce": {
+      "texts": {
+        "zh-CN": {
+          "title": "G 值",
+          "description": "摩擦圆与抓地包络、各方向峰值 G 值、本次记录"
+        }
+      }
+    },
+    "live_adjustments": {
+      "texts": {
+        "zh-CN": {
+          "title": "发动机配置",
+          "description": "宝马 MGU ID7 的发动机配置。排气阀门：原厂、常开、常闭，经车辆自身诊断链路控制，或跟随驾驶模式（运动模式开、节能模式关）；抵抗 DME 超时，超过设定转速时交还关闭。设置里选择 BM3 或 MHD 后：切换发动机程序、回火、ASD 与最大冷却。实验性功能：xDrive 关闭至下次点火循环（DSC LMV_FUNKTION），由独立设置开关"
+        }
+      }
+    },
+    "live_data": {
+      "texts": {
+        "zh-CN": {
+          "title": "实时数据",
+          "description": "车辆与控制单元的只读实时数值、含油费的行车电脑，以及自选的仪表页，其中一页可作主屏小组件"
+        }
+      }
+    },
+    "redline": {
+      "texts": {
+        "zh-CN": {
+          "title": "转速表",
+          "description": "全屏转速表，带换挡灯、挡位、换挡评分与冷车转速保护"
+        }
+      }
+    },
+    "service": {
+      "texts": {
+        "zh-CN": {
+          "title": "保养",
+          "description": "仪表盘上的保养需求：机油、刹车、制动液、车辆检查、年检 —— 距离、日期、明细；制动液与车辆检查可复位"
+        }
+      }
+    },
+    "warmup": {
+      "texts": {
+        "zh-CN": {
+          "title": "暖车",
+          "description": "机油与冷却液升温计算（达到可用的时间）、安全转速上限与涡轮冷却"
+        }
+      }
+    },
+    "zf8hp": {
+      "texts": {
+        "zh-CN": {
+          "title": "变速箱配置",
+          "description": "变速箱配置，实验性 ZF 8HP 监测：实时数据、离合器充油自适应、换挡图谱与温度历史"
+        }
+      }
+    },
     "manifest": "app.json",
     "icon": "icon.png",
-    "mguHmi": ["ID7"],
+    "mguHmi": [
+      "ID7"
+    ],
     "requires": {
       "idrive7-renderd": "2.1.11",
       "mgu-inputgate": "1.0.0"
     },
     "build": {
       "python": "kit/tools/build.py",
-      "args": ["{id}", "--language", "zh-CN"],
+      "args": [
+        "{id}",
+        "--language",
+        "zh-CN"
+      ],
       "sdk": "oap-sdk",
       "output": "dist/{id}@{version}.tgz",
-      "shared": ["kit/runtime", "kit/platform", "kit/localization", "kit/tools/build.py", "kit/tools/pack_data.py", "kit/tools/localize.py", "kit/tools/locale-revisions.json", "kit/tools/oapgen", "oap-sdk"]
+      "shared": [
+        "kit/runtime",
+        "kit/platform",
+        "kit/localization",
+        "kit/tools/build.py",
+        "kit/tools/pack_data.py",
+        "kit/tools/localize.py",
+        "kit/tools/locale-revisions.json",
+        "kit/tools/oapgen",
+        "oap-sdk"
+      ]
     }
   },
   "tools": [
@@ -24,7 +160,9 @@
       "title": "GPU 渲染器",
       "description": "这些应用自己的 GPU 渲染器（mgu-render）：以 60 帧绘制它们，与 MGU Store 的渲染器并存；随应用一起安装",
       "provides": "renderer",
-      "mguHmi": ["ID7"]
+      "mguHmi": [
+        "ID7"
+      ]
     },
     {
       "id": "mgu-inputgate",
@@ -32,9 +170,13 @@
       "version": "1.0.0",
       "title": "控制器接管",
       "description": "让应用获得 iDrive 控制器（标签页、翻页、设置）；在下次启动时载入 HMI",
-      "needs": ["renderer"],
+      "needs": [
+        "renderer"
+      ],
       "optional": false,
-      "mguHmi": ["ID7"],
+      "mguHmi": [
+        "ID7"
+      ],
       "preload": {
         "library": "mgu-inputgate.so",
         "unit": "hmi.service",
