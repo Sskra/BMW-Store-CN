@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "apps": {
+    "path": "apps/*",
+    "manifest": "app.json",
+    "icon": "icon.png",
+    "mguHmi": ["ID7"],
+    "requires": {
+      "idrive7-renderd": "2.1.11",
+      "mgu-inputgate": "1.0.0"
+    },
+    "build": {
+      "python": "kit/tools/build.py",
+      "args": ["{id}", "--language", "zh-CN"],
+      "sdk": "oap-sdk",
+      "output": "dist/{id}@{version}.tgz",
+      "shared": ["kit/runtime", "kit/platform", "kit/localization", "kit/tools/build.py", "kit/tools/pack_data.py", "kit/tools/localize.py", "kit/tools/locale-revisions.json", "kit/tools/oapgen", "oap-sdk"]
+    }
+  },
+  "tools": [
+    {
+      "id": "idrive7-renderd",
+      "path": "kit/renderd/prebuilt",
+      "title": "GPU 渲染器",
+      "description": "这些应用自己的 GPU 渲染器（mgu-render）：以 60 帧绘制它们，与 MGU Store 的渲染器并存；随应用一起安装",
+      "provides": "renderer",
+      "mguHmi": ["ID7"]
+    },
+    {
+      "id": "mgu-inputgate",
+      "path": "kit/renderd/prebuilt",
+      "version": "1.0.0",
+      "title": "控制器接管",
+      "description": "让应用获得 iDrive 控制器（标签页、翻页、设置）；在下次启动时载入 HMI",
+      "needs": ["renderer"],
+      "optional": false,
+      "mguHmi": ["ID7"],
+      "preload": {
+        "library": "mgu-inputgate.so",
+        "unit": "hmi.service",
+        "process": "HmiMain3D",
+        "strikes": 2,
+        "checkAfterSeconds": 120,
+        "healthySeconds": 60
+      }
+    }
+  ]
+}

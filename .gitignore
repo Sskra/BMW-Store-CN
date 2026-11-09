@@ -1,0 +1,30 @@
+node_modules/
+.DS_Store
+
+# The working notes and design documents kept in this folder beside the
+# repository's own (DEV-NOTES.md, SPEED-BADGE.md, TURN-CARD.md, ...): the
+# published tree carries only what the components need. README.md is the
+# repository's own and stays tracked.
+/*.md
+!README.md
+/*.png
+/*.patch
+/verify-res-fix.js
+
+# builds: the apps' packages
+*.tgz
+
+# kit (the apps' build system, from cauliflowermossgrape/idrive7-apps)
+# BMW's SDK: extract it from your own head unit, never commit it
+oap-sdk
+# build output: every .mgu contains BMW's SDK
+dist/
+__pycache__/
+# The upstream sync's unpacked tarball (tools/sync-upstream.js)
+.sync-upstream/
+*.pyc
+.venv/
+kit/renderd/build/
+kit/renderd/protocol/*-protocol.c
+kit/renderd/protocol/*-client-protocol.h
+kit/tools/.font-cache/

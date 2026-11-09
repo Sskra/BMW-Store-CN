@@ -1,0 +1,121 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Follows cauliflowermossgrape/idrive7-apps: their apps and kit come over, this
+# repository's own three changes stay (tools/sync-upstream.js says which), the
+# tests run, and a change that passes is committed. A change that fails is
+# left in the log, not committed - the next run picks it up again.
+name: Sync upstream
+
+on:
+  schedule:
+    # every 6 hours; GitHub may delay a scheduled run under load
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      keep:
+        description: 'Take the upstream copy of files this repository also changed'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch, merge and keep this repository's own
+        id: merge
+        run: |
+          set -o pipefail
+          args=""
+          if [ "${{ inputs.keep }}" = "true" ]; then args="--keep"; fi
+          node tools/sync-upstream.js $args 2>&1 | tee sync.log
+          # 2 means a file changed on both sides: nothing was copied for it
+          code=${PIPESTATUS[0]}
+          if [ "$code" = "2" ]; then
+            echo "conflict=true" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+          if [ "$code" != "0" ]; then exit 1; fi
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: The app tests
+        if: steps.merge.outputs.changed == 'true'
+        run: |
+          set -o pipefail
+          fail=0
+          for t in kit/tools/test_*.js; do
+            if ! node "$t" > /tmp/out.txt 2>&1; then
+              # a test that needs a car's own files or a platform this runner
+              # does not have says so and is not a failure
+              if grep -qiE 'SKIP|cannot|not found|ENOENT|EACCES' /tmp/out.txt; then
+                echo "skip $(basename "$t")"
+              else
+                echo "FAIL $(basename "$t")"
+                tail -20 /tmp/out.txt
+                fail=1
+              fi
+            else
+              echo "ok   $(basename "$t")"
+            fi
+          done
+          exit $fail
+
+      - name: The build of every app, in Chinese
+        if: steps.merge.outputs.changed == 'true'
+        run: |
+          set -o pipefail
+          fail=0
+          for d in apps/*/; do
+            id=$(basename "$d")
+            [ -f "$d/app.json" ] || continue
+            if python3 kit/tools/build.py "$id" --language zh-CN --preview-only > /tmp/b.txt 2>&1; then
+              echo "ok   $id"
+            else
+              echo "FAIL $id"
+              tail -15 /tmp/b.txt
+              fail=1
+            fi
+          done
+          exit $fail
+
+      - name: Commit and push
+        if: steps.merge.outputs.changed == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          {
+            echo "Sync cauliflowermossgrape/idrive7-apps"
+            echo
+            echo "Their apps/ and kit/ come over as they are, built in Chinese"
+            echo "(mgu-repo.json). This repository keeps its own package_version"
+            echo "(kit/tools/localize.py), its mgu-repo.json and draggy's title."
+            echo
+            grep -E '^  [+~] ' sync.log | sed 's/^/  /' | head -60
+            echo
+            echo "Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+          } > /tmp/msg.txt
+          git commit -F /tmp/msg.txt
+          git push
