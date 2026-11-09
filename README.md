@@ -5,10 +5,6 @@
 从 [mgu Store](https://github.com/robertnisipeanu/mgu-store) 安装。这些应用在 Store 里
 **由车机现场编译**——推代码即发，不需要打包发布。
 
-> 地图三件套（`cluster-render`、`waze-on-cluster`、`robertn_waze_cluster`）已经搬到
-> [Sskra/CarPlay-Map](https://github.com/Sskra/CarPlay-Map)。那三个是编译一次、发布
-> 成产物的，和这里的走法不同，所以分开。
-
 ---
 
 ## 一、这 14 个应用
@@ -97,7 +93,5 @@ CI（`.github/workflows/sync-upstream.yml`）在每次同步后跑同样的两�
 这 14 个应用与 `kit/` 来自
 [cauliflowermossgrape/idrive7-apps](https://github.com/cauliflowermossgrape/idrive7-apps)，
 本仓库只加中文，代码不改。
-
-地图三件套在 [Sskra/CarPlay-Map](https://github.com/Sskra/CarPlay-Map)。
 
 GPL-3.0-or-later。

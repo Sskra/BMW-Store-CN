@@ -49,9 +49,8 @@ const KEEP = ['kit/tools/localize.py', 'mgu-repo.json'];
 const TREES = ['apps', 'kit'];
 
 /* Apps this repository has and the upstream does not: theirs stays entirely
- * ours, so the walk skips the folder. Empty: the three components that are
- * built and published from CarPlay-Map are not here any more, and the
- * fourteen that remain all come from the upstream. */
+ * ours, so the walk skips the folder. Empty: every app here comes from the
+ * upstream. */
 const OWN_APPS = [];
 
 function log(msg) {
