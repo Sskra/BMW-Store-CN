@@ -2,7 +2,7 @@
 'use strict';
 /**
  * Pulls cauliflowermossgrape/idrive7-apps's apps and build system into this
- * repository, keeps this repository's own three changes, and reports what
+ * repository, keeps this repository's own two changes, and reports what
  * moved. Run by .github/workflows/sync-upstream.yml; runnable by hand:
  *
  *   node tools/sync-upstream.js                 apply (needs the tarball)
@@ -18,7 +18,10 @@
  *      is a build that never installs.
  *   2. mgu-repo.json  builds every app with --language zh-CN, and names the
  *      renderd and input gate the apps install beside themselves.
- *   3. apps/draggy/app.json  this repository's title and screen title.
+ *
+ * The apps' sources are the upstream's as they are: --language zh-CN has
+ * localize.py rewrite titles, buttons and settings from kit's word list at
+ * build time, so a translated app.json here would only drift from theirs.
  *
  * A file that came over and that this repository had changed otherwise is
  * reported, not silently overwritten: run with --keep to leave it alone.
@@ -35,8 +38,12 @@ const BRANCH = 'main';
 const TMP = path.join(ROOT, '.sync-upstream');
 
 /* The files this repository owns outright: copied over the upstream's after
- * the merge, always. */
-const KEEP = ['kit/tools/localize.py', 'mgu-repo.json', 'apps/draggy/app.json'];
+ * the merge, always. Neither exists upstream: localize.py's package_version is
+ * this repository's fix (a language build keeps app.json's version, or the
+ * repo-tree build names a tarball the Store never installs), and mgu-repo.json
+ * is where --language zh-CN comes from. Everything else is the upstream's as
+ * it is - the Chinese comes out of the build, not out of edited sources. */
+const KEEP = ['kit/tools/localize.py', 'mgu-repo.json'];
 
 /* The upstream's, taken as they are. */
 const TREES = ['apps', 'kit'];
