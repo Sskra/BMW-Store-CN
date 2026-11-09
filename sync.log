@@ -1,0 +1,6 @@
+fetching https://codeload.github.com/cauliflowermossgrape/idrive7-apps/tar.gz/refs/heads/main
+upstream: 0 new, 0 changed, 1 only here
+  - apps/doom/freedoom1.wad (kept: this repository only)
+kept as they are here: kit/tools/localize.py, mgu-repo.json
+
+copied 0 files
