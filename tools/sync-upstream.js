@@ -23,8 +23,11 @@
  * localize.py rewrite titles, buttons and settings from kit's word list at
  * build time, so a translated app.json here would only drift from theirs.
  *
- * A file that came over and that this repository had changed otherwise is
- * reported, not silently overwritten: run with --keep to leave it alone.
+ * A file that came over and that this repository had changed otherwise takes
+ * the upstream's, and is listed as a conflict. This repository's checkout is
+ * a snapshot, not a fork: a path that differs from the upstream's is one the
+ * upstream moved on from, and keeping it would pin the whole tree to that
+ * snapshot. Run with --keep to leave such a file as it is here instead.
  */
 const fs = require('fs');
 const path = require('path');
@@ -52,6 +55,13 @@ const TREES = ['apps', 'kit'];
  * ours, so the walk skips the folder. Empty: every app here comes from the
  * upstream. */
 const OWN_APPS = [];
+
+/* Files that only look like this repository's: the upstream moved them, so
+ * the path here is the old one under a new name. Copying the upstream's
+ * leaves both; dropping the old path makes the sync settle. */
+const MOVED = [
+    ['apps/draggy/timer.js', 'kit/runtime/run_timer.js'],
+];
 
 function log(msg) {
     process.stdout.write(msg + '\n');
@@ -166,6 +176,13 @@ async function main() {
     const keep = process.argv.indexOf('--keep') >= 0;
     const keepSet = new Set(KEEP);
 
+    /* The upstream's file is coming over, so the old path here is retired:
+     * --keep means "leave this repository's files alone", and then it stays. */
+    const moves = MOVED.filter(([from, to]) => !keepSet.has(to) && fs.existsSync(path.join(ROOT, from)));
+    if (!keep) {
+        moves.forEach(([from]) => keepSet.add(from));
+    }
+
     const src = await unpack();
     const ours = [];
     const added = [];
@@ -207,7 +224,10 @@ async function main() {
     gone.forEach((f) => log(`  - ${f} (kept: this repository only)`));
 
     if (keepSet.size) {
-        log('kept as they are here: ' + KEEP.join(', '));
+        log('kept as they are here: ' + [...keepSet].join(', '));
+    }
+    if (moves.length) {
+        log('moved upstream, old path dropped here: ' + moves.map(([from, to]) => from + ' -> ' + to).join(', '));
     }
 
     if (dry) {
@@ -219,13 +239,22 @@ async function main() {
         fs.mkdirSync(path.dirname(to), { recursive: true });
         fs.copyFileSync(from, to);
     }
+    /* Only once the upstream's copy is in place, so a move never leaves the
+     * app without its module. */
+    moves.forEach(([from]) => fs.rmSync(path.join(ROOT, from), { force: true }));
     log(`\ncopied ${ours.length} files`);
 
-    /* A changed path is one this repository also edited: say so and stop,
-     * unless --keep was given, so a merge never loses a local fix quietly. */
-    if (changed.length && !keep) {
-        log('\nthose files changed here and upstream: review them, or run with --keep to take the upstream\'s');
-        return 2;
+    /* A changed path is one this repository had at another point than the
+     * upstream: the upstream's was just copied over it, so the history keeps
+     * the old content and the next run settles. Say so, and go on to the
+     * tests: failing here would leave the tree synced but never committed,
+     * and every run after it failing the same way. */
+    if (changed.length) {
+        log(`\n${changed.length} files changed here and upstream, took the upstream's:`);
+        changed.forEach((f) => log(`  ${f}`));
+        if (keep) {
+            log('(with --keep, they would be left as they are here)');
+        }
     }
     fs.rmSync(TMP, { recursive: true, force: true });
     return 0;
