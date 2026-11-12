@@ -1,5 +1,58 @@
 fetching https://codeload.github.com/cauliflowermossgrape/idrive7-apps/tar.gz/refs/heads/main
-upstream: 0 new, 0 changed, 0 only here
+upstream: 7 new, 22 changed, 0 only here
+  + apps/ambient_config/others.js
+  + apps/redline/logview.js
+  + apps/redline/shareshift.js
+  + kit/tools/test_ambient_others.js
+  + kit/tools/test_fit_to_unit.py
+  + kit/tools/test_redline_logview.js
+  + kit/tools/test_redline_shareshift.js
+  ~ apps/ambient_config/app.json
+  ~ apps/ambient_config/main.js
+  ~ apps/redline/README.md
+  ~ apps/redline/app.json
+  ~ apps/redline/hud-draw.js
+  ~ apps/redline/hud-m.js
+  ~ apps/redline/hud.js
+  ~ apps/redline/main.js
+  ~ kit/renderd/prebuilt/component.json
+  ~ kit/runtime/canvas.js
+  ~ kit/runtime/car.js
+  ~ kit/runtime/locales/ko.json
+  ~ kit/runtime/locales/ko.tsv
+  ~ kit/runtime/mgu.js
+  ~ kit/runtime/sheet.js
+  ~ kit/tools/build.py
+  ~ kit/tools/hu-stub.js
+  ~ kit/tools/test_redline_features.js
+  ~ kit/tools/test_redline_hud.js
+  ~ kit/tools/test_redline_powerbar.js
+  ~ kit/tools/test_redline_running.js
+  ~ kit/tools/test_runtime.js
 kept as they are here: kit/tools/localize.py, mgu-repo.json
 
-copied 0 files
+copied 29 files
+
+22 files changed here and upstream, took the upstream's:
+  apps/ambient_config/app.json
+  apps/ambient_config/main.js
+  apps/redline/README.md
+  apps/redline/app.json
+  apps/redline/hud-draw.js
+  apps/redline/hud-m.js
+  apps/redline/hud.js
+  apps/redline/main.js
+  kit/renderd/prebuilt/component.json
+  kit/runtime/canvas.js
+  kit/runtime/car.js
+  kit/runtime/locales/ko.json
+  kit/runtime/locales/ko.tsv
+  kit/runtime/mgu.js
+  kit/runtime/sheet.js
+  kit/tools/build.py
+  kit/tools/hu-stub.js
+  kit/tools/test_redline_features.js
+  kit/tools/test_redline_hud.js
+  kit/tools/test_redline_powerbar.js
+  kit/tools/test_redline_running.js
+  kit/tools/test_runtime.js
