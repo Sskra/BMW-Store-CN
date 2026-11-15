@@ -1,6 +1,36 @@
 fetching https://codeload.github.com/cauliflowermossgrape/idrive7-apps/tar.gz/refs/heads/main
-upstream: 0 new, 0 changed, 0 only here
+upstream: 2 new, 13 changed, 0 only here
+  + apps/redline/call.js
+  + kit/tools/test_redline_call.js
+  ~ apps/doom/app.json
+  ~ apps/dyno/app.json
+  ~ apps/live_data/README.md
+  ~ apps/live_data/app.json
+  ~ apps/live_data/main.js
+  ~ apps/live_data/screens.js
+  ~ apps/redline/README.md
+  ~ apps/redline/app.json
+  ~ apps/redline/hud.js
+  ~ apps/redline/main.js
+  ~ kit/runtime/mgu.js
+  ~ kit/tools/test_live_data.js
+  ~ kit/tools/test_redline_running.js
 kept as they are here: mgu-repo.json
 our change kept in: kit/tools/localize.py
 
-copied 0 files
+copied 15 files
+
+13 files changed here and upstream, took the upstream's:
+  apps/doom/app.json
+  apps/dyno/app.json
+  apps/live_data/README.md
+  apps/live_data/app.json
+  apps/live_data/main.js
+  apps/live_data/screens.js
+  apps/redline/README.md
+  apps/redline/app.json
+  apps/redline/hud.js
+  apps/redline/main.js
+  kit/runtime/mgu.js
+  kit/tools/test_live_data.js
+  kit/tools/test_redline_running.js
