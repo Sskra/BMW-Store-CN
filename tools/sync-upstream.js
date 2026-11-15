@@ -41,12 +41,44 @@ const BRANCH = 'main';
 const TMP = path.join(ROOT, '.sync-upstream');
 
 /* The files this repository owns outright: copied over the upstream's after
- * the merge, always. Neither exists upstream: localize.py's package_version is
- * this repository's fix (a language build keeps app.json's version, or the
- * repo-tree build names a tarball the Store never installs), and mgu-repo.json
- * is where --language zh-CN comes from. Everything else is the upstream's as
- * it is - the Chinese comes out of the build, not out of edited sources. */
-const KEEP = ['kit/tools/localize.py', 'mgu-repo.json'];
+ * the merge, always. mgu-repo.json does not exist upstream: it is where
+ * --language zh-CN comes from. Everything else is the upstream's as it is -
+ * the Chinese comes out of the build, not out of edited sources. */
+const KEEP = ['mgu-repo.json'];
+
+/* Our own change inside a file that is otherwise the upstream's: applied to
+ * the upstream's copy after the merge. Keeping the whole file out of the sync
+ * instead pins it at one upstream revision, and the next time the upstream
+ * changes anything in it the two no longer fit together - which is how the
+ * build broke when unicode_resources() grew a fourth argument. */
+const PATCHES = [
+    {
+        file: 'kit/tools/localize.py',
+        /* package_version keeps app.json's version for a language build. The
+         * Store's repo-tree build wants <id>@<entry.version>.tgz in MGU_OUT
+         * (native/mgu-updater/js/build.js), and entry.version is app.json's,
+         * so the upstream's -<lang>.<rev> name is a build that never installs.
+         * The change reads MGU_VERSION_SUFFIX from the environment, so the file
+         * needs `import os` too. */
+        need: ['import os'],
+        from: `def package_version(version, language):
+    revisions = json.loads((Path(__file__).parent / 'locale-revisions.json').read_text(encoding='utf-8'))
+    return version if language == 'en' else version + '-' + language.lower().replace('-', '.') + '.' + str(revisions.get(language, 1))`,
+        to: `def package_version(version, language):
+    # A language build keeps the version app.json names: the Store's repo-tree
+    # build expects <id>@<entry.version>.tgz in MGU_OUT
+    # (native/mgu-updater/js/build.js), and entry.version is app.json's, so a
+    # suffixed name is a build that never installs. One repository is one
+    # language here - a Chinese repository builds Chinese packages, an English
+    # one English - so two languages never need two versions of one app.
+    # MGU_VERSION_SUFFIX=1 restores the old <ver>-<lang>.<rev> for a repository
+    # that ships both.
+    if language == 'en' or os.environ.get('MGU_VERSION_SUFFIX') != '1':
+        return version
+    revisions = json.loads((Path(__file__).parent / 'locale-revisions.json').read_text(encoding='utf-8'))
+    return version + '-' + language.lower().replace('-', '.') + '.' + str(revisions.get(language, 1))`,
+    },
+];
 
 /* The upstream's, taken as they are. */
 const TREES = ['apps', 'kit'];
@@ -175,6 +207,7 @@ async function main() {
     const dry = process.argv.indexOf('--dry-run') >= 0;
     const keep = process.argv.indexOf('--keep') >= 0;
     const keepSet = new Set(KEEP);
+    const patched = PATCHES.slice();
 
     /* The upstream's file is coming over, so the old path here is retired:
      * --keep means "leave this repository's files alone", and then it stays. */
@@ -190,6 +223,27 @@ async function main() {
     const conflicts = [];
     const gone = [];
 
+    /* A file this repository changes on purpose is compared as the upstream's
+     * plus our change, so it is not "changed here and upstream" on every run. */
+    const ours_ = (file, text) => {
+        const p = PATCHES.find((x) => x.file === file);
+        if (!p) return text;
+        let t = text;
+        if (t.includes(p.to)) t = t.replace(p.to, p.from);
+        for (const line of p.need || []) {
+            const lines = t.split('\n');
+            const at = lines.indexOf(line);
+            if (at >= 0) t = lines.slice(0, at).concat(lines.slice(at + 1)).join('\n');
+        }
+        return t;
+    };
+    const sameAsUpstream = (from, to) => {
+        if (!fs.existsSync(from) || !fs.existsSync(to)) return false;
+        const rel = path.relative(ROOT, to).split(path.sep).join('/');
+        const norm = (s) => s.split('\r\n').join('\n');
+        return norm(ours_(rel, fs.readFileSync(to, 'utf8'))) === norm(fs.readFileSync(from, 'utf8'));
+    };
+
     for (const tree of TREES) {
         const theirs = walk(path.join(src, tree));
         const mine = walk(path.join(ROOT, tree));
@@ -203,7 +257,7 @@ async function main() {
             const to = path.join(ROOT, tree, rel);
             if (!fs.existsSync(to)) {
                 added.push(full);
-            } else if (!same(from, to)) {
+            } else if (!sameAsUpstream(from, to)) {
                 changed.push(full);
             } else {
                 continue;
@@ -229,6 +283,7 @@ async function main() {
     if (moves.length) {
         log('moved upstream, old path dropped here: ' + moves.map(([from, to]) => from + ' -> ' + to).join(', '));
     }
+    patched.forEach((p) => log('our change kept in: ' + p.file));
 
     if (dry) {
         log('\n--dry-run: nothing written');
@@ -244,6 +299,25 @@ async function main() {
     moves.forEach(([from]) => fs.rmSync(path.join(ROOT, from), { force: true }));
     log(`\ncopied ${ours.length} files`);
 
+    for (const p of patched) {
+        const file = path.join(ROOT, p.file);
+        let text = fs.readFileSync(file, 'utf8');
+        /* An import the change needs, added above the first one it already has. */
+        for (const line of p.need || []) {
+            if (text.split('\n').some((l) => l.trim() === line)) continue;
+            const at = text.search(/^(import|from) /m);
+            if (at < 0) throw new Error(`${p.file}: no import to put "${line}" above`);
+            text = text.slice(0, at) + line + '\n' + text.slice(at);
+        }
+        if (!text.includes(p.to)) {
+            if (!text.includes(p.from)) {
+                throw new Error(`${p.file}: the upstream's version of what this repository changes is gone; `
+                    + 'check PATCHES in tools/sync-upstream.js against it');
+            }
+            text = text.replace(p.from, p.to);
+        }
+        fs.writeFileSync(file, text);
+    }
     /* A changed path is one this repository had at another point than the
      * upstream: the upstream's was just copied over it, so the history keeps
      * the old content and the next run settles. Say so, and go on to the

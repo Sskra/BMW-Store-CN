@@ -1,8 +1,8 @@
 """Fixed-language packages. Add a locales/<tag>.json catalog to build another language."""
 # Translation by: 抖音 小白科技杂物社 / BiliBili 小白151 / GitHub JackieZ123430
+import os
 import copy
 import json
-import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -47,13 +47,13 @@ def text(value, words):
 
 def package_version(version, language):
     # A language build keeps the version app.json names: the Store's repo-tree
-    # build expects `<id>@<entry.version>.tgz` in MGU_OUT
+    # build expects <id>@<entry.version>.tgz in MGU_OUT
     # (native/mgu-updater/js/build.js), and entry.version is app.json's, so a
     # suffixed name is a build that never installs. One repository is one
     # language here - a Chinese repository builds Chinese packages, an English
     # one English - so two languages never need two versions of one app.
-    # MGU_VERSION_SUFFIX=1 restores the old `<ver>-<lang>.<rev>` for a
-    # repository that ships both.
+    # MGU_VERSION_SUFFIX=1 restores the old <ver>-<lang>.<rev> for a repository
+    # that ships both.
     if language == 'en' or os.environ.get('MGU_VERSION_SUFFIX') != '1':
         return version
     revisions = json.loads((Path(__file__).parent / 'locale-revisions.json').read_text(encoding='utf-8'))
@@ -81,8 +81,8 @@ def localize_spec(spec, language):
     return s
 
 
-def unicode_resources(ui, strings, language='en'):
-    """Localize static resources; give initial Text cells stable Unicode StringIds."""
+def unicode_resources(ui, strings, language='en', prefix='SID_CN_STATIC_'):
+    """Localize static resources; give initial Text cells stable Unicode StringIds (prefix + a number)."""
     words = load_locale(language)
     counter = [0]
 
@@ -90,7 +90,7 @@ def unicode_resources(ui, strings, language='en'):
         if isinstance(obj, dict):
             value = obj.get('value')
             if obj.get('type') == 'Text' and isinstance(value, str) and value:
-                sid = 'SID_CN_STATIC_%04d' % counter[0]
+                sid = prefix + '%04d' % counter[0]
                 counter[0] += 1
                 strings[sid] = value
                 obj.update(value=sid, type='StringId')
