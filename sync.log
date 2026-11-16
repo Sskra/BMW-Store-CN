@@ -1,6 +1,68 @@
 fetching https://codeload.github.com/cauliflowermossgrape/idrive7-apps/tar.gz/refs/heads/main
-upstream: 0 new, 0 changed, 0 only here
+upstream: 0 new, 30 changed, 0 only here
+  ~ apps/ambient_config/app.json
+  ~ apps/brake_test/app.json
+  ~ apps/car_vitals/app.json
+  ~ apps/doom/app.json
+  ~ apps/draggy/app.json
+  ~ apps/dtc_scanner/app.json
+  ~ apps/dyno/app.json
+  ~ apps/edrive/app.json
+  ~ apps/edrive/battery12.js
+  ~ apps/edrive/live.js
+  ~ apps/edrive/main.js
+  ~ apps/edrive/range.js
+  ~ apps/gforce/app.json
+  ~ apps/live_adjustments/app.json
+  ~ apps/live_data/app.json
+  ~ apps/redline/app.json
+  ~ apps/redline/electrical.js
+  ~ apps/service/app.json
+  ~ apps/warmup/app.json
+  ~ apps/zf8hp/app.json
+  ~ kit/runtime/locales/ko.json
+  ~ kit/runtime/locales/ko.tsv
+  ~ kit/runtime/locales/ru.json
+  ~ kit/runtime/locales/ru.tsv
+  ~ kit/runtime/locales/zh-CN.json
+  ~ kit/runtime/locales/zh-CN.tsv
+  ~ kit/runtime/signals.js
+  ~ kit/tools/test_edrive.js
+  ~ kit/tools/test_redline_hud.js
+  ~ kit/tools/test_runtime.js
 kept as they are here: mgu-repo.json
 our change kept in: kit/tools/localize.py
 
-copied 0 files
+copied 30 files
+
+30 files changed here and upstream, took the upstream's:
+  apps/ambient_config/app.json
+  apps/brake_test/app.json
+  apps/car_vitals/app.json
+  apps/doom/app.json
+  apps/draggy/app.json
+  apps/dtc_scanner/app.json
+  apps/dyno/app.json
+  apps/edrive/app.json
+  apps/edrive/battery12.js
+  apps/edrive/live.js
+  apps/edrive/main.js
+  apps/edrive/range.js
+  apps/gforce/app.json
+  apps/live_adjustments/app.json
+  apps/live_data/app.json
+  apps/redline/app.json
+  apps/redline/electrical.js
+  apps/service/app.json
+  apps/warmup/app.json
+  apps/zf8hp/app.json
+  kit/runtime/locales/ko.json
+  kit/runtime/locales/ko.tsv
+  kit/runtime/locales/ru.json
+  kit/runtime/locales/ru.tsv
+  kit/runtime/locales/zh-CN.json
+  kit/runtime/locales/zh-CN.tsv
+  kit/runtime/signals.js
+  kit/tools/test_edrive.js
+  kit/tools/test_redline_hud.js
+  kit/tools/test_runtime.js
