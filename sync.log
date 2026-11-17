@@ -1,68 +1,74 @@
 fetching https://codeload.github.com/cauliflowermossgrape/idrive7-apps/tar.gz/refs/heads/main
-upstream: 0 new, 30 changed, 0 only here
+upstream: 4 new, 31 changed, 0 only here
+  + apps/draggy/wheelspin.js
+  + apps/warmup/coldstarts.js
+  + kit/tools/test_coldstarts.js
+  + kit/tools/test_wheelspin.js
   ~ apps/ambient_config/app.json
-  ~ apps/brake_test/app.json
+  ~ apps/ambient_config/lights.js
+  ~ apps/ambient_config/main.js
   ~ apps/car_vitals/app.json
-  ~ apps/doom/app.json
+  ~ apps/car_vitals/main.js
   ~ apps/draggy/app.json
-  ~ apps/dtc_scanner/app.json
-  ~ apps/dyno/app.json
+  ~ apps/draggy/main.js
   ~ apps/edrive/app.json
-  ~ apps/edrive/battery12.js
   ~ apps/edrive/live.js
-  ~ apps/edrive/main.js
-  ~ apps/edrive/range.js
-  ~ apps/gforce/app.json
   ~ apps/live_adjustments/app.json
+  ~ apps/live_adjustments/bm3_protocol.js
   ~ apps/live_data/app.json
+  ~ apps/live_data/main.js
+  ~ apps/live_data/signals.js
   ~ apps/redline/app.json
-  ~ apps/redline/electrical.js
-  ~ apps/service/app.json
+  ~ apps/redline/main.js
   ~ apps/warmup/app.json
-  ~ apps/zf8hp/app.json
-  ~ kit/runtime/locales/ko.json
-  ~ kit/runtime/locales/ko.tsv
-  ~ kit/runtime/locales/ru.json
-  ~ kit/runtime/locales/ru.tsv
-  ~ kit/runtime/locales/zh-CN.json
-  ~ kit/runtime/locales/zh-CN.tsv
-  ~ kit/runtime/signals.js
-  ~ kit/tools/test_edrive.js
-  ~ kit/tools/test_redline_hud.js
-  ~ kit/tools/test_runtime.js
+  ~ apps/warmup/main.js
+  ~ kit/renderd/CHANGELOG.md
+  ~ kit/renderd/inputgate/mgu-inputgate.cpp
+  ~ kit/renderd/inputgate/tool/README.md
+  ~ kit/renderd/inputgate/tool/component.json
+  ~ kit/renderd/inputgate/tool/guard.sh
+  ~ kit/renderd/inputgate/tool/mgu-inputgate.so
+  ~ kit/renderd/prebuilt/SOURCE_SHA256
+  ~ kit/renderd/prebuilt/component.json
+  ~ kit/renderd/prebuilt/mgu-inputgate.so
+  ~ kit/renderd/prebuilt/mgu-renderd
+  ~ kit/renderd/src/main.c
+  ~ kit/tools/test_ambient_rgb.js
+  ~ kit/tools/test_bm3_protocol.js
 kept as they are here: mgu-repo.json
 our change kept in: kit/tools/localize.py
 
-copied 30 files
+copied 35 files
 
-30 files changed here and upstream, took the upstream's:
+31 files changed here and upstream, took the upstream's:
   apps/ambient_config/app.json
-  apps/brake_test/app.json
+  apps/ambient_config/lights.js
+  apps/ambient_config/main.js
   apps/car_vitals/app.json
-  apps/doom/app.json
+  apps/car_vitals/main.js
   apps/draggy/app.json
-  apps/dtc_scanner/app.json
-  apps/dyno/app.json
+  apps/draggy/main.js
   apps/edrive/app.json
-  apps/edrive/battery12.js
   apps/edrive/live.js
-  apps/edrive/main.js
-  apps/edrive/range.js
-  apps/gforce/app.json
   apps/live_adjustments/app.json
+  apps/live_adjustments/bm3_protocol.js
   apps/live_data/app.json
+  apps/live_data/main.js
+  apps/live_data/signals.js
   apps/redline/app.json
-  apps/redline/electrical.js
-  apps/service/app.json
+  apps/redline/main.js
   apps/warmup/app.json
-  apps/zf8hp/app.json
-  kit/runtime/locales/ko.json
-  kit/runtime/locales/ko.tsv
-  kit/runtime/locales/ru.json
-  kit/runtime/locales/ru.tsv
-  kit/runtime/locales/zh-CN.json
-  kit/runtime/locales/zh-CN.tsv
-  kit/runtime/signals.js
-  kit/tools/test_edrive.js
-  kit/tools/test_redline_hud.js
-  kit/tools/test_runtime.js
+  apps/warmup/main.js
+  kit/renderd/CHANGELOG.md
+  kit/renderd/inputgate/mgu-inputgate.cpp
+  kit/renderd/inputgate/tool/README.md
+  kit/renderd/inputgate/tool/component.json
+  kit/renderd/inputgate/tool/guard.sh
+  kit/renderd/inputgate/tool/mgu-inputgate.so
+  kit/renderd/prebuilt/SOURCE_SHA256
+  kit/renderd/prebuilt/component.json
+  kit/renderd/prebuilt/mgu-inputgate.so
+  kit/renderd/prebuilt/mgu-renderd
+  kit/renderd/src/main.c
+  kit/tools/test_ambient_rgb.js
+  kit/tools/test_bm3_protocol.js
