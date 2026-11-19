@@ -1,20 +1,6 @@
 fetching https://codeload.github.com/cauliflowermossgrape/idrive7-apps/tar.gz/refs/heads/main
-upstream: 0 new, 6 changed, 0 only here
-  ~ apps/ambient_config/app.json
-  ~ apps/ambient_config/lights.js
-  ~ apps/ambient_config/main.js
-  ~ apps/ambient_config/others.js
-  ~ kit/tools/test_ambient_others.js
-  ~ kit/tools/test_ambient_rgb.js
+upstream: 0 new, 0 changed, 0 only here
 kept as they are here: mgu-repo.json
 our change kept in: kit/tools/localize.py
 
-copied 6 files
-
-6 files changed here and upstream, took the upstream's:
-  apps/ambient_config/app.json
-  apps/ambient_config/lights.js
-  apps/ambient_config/main.js
-  apps/ambient_config/others.js
-  kit/tools/test_ambient_others.js
-  kit/tools/test_ambient_rgb.js
+copied 0 files
