@@ -1,6 +1,54 @@
 fetching https://codeload.github.com/cauliflowermossgrape/idrive7-apps/tar.gz/refs/heads/main
-upstream: 0 new, 0 changed, 0 only here
+upstream: 12 new, 17 changed, 0 only here
+  + apps/live_adjustments/rescan.js
+  + kit/localization/credit.es.json
+  + kit/localization/fonts/es/bold.json
+  + kit/localization/fonts/es/label.json
+  + kit/localization/fonts/es/light.json
+  + kit/localization/fonts/es/num.json
+  + kit/runtime/locales/es.json
+  + kit/runtime/locales/es.tsv
+  + kit/tools/bake_spanish.py
+  + kit/tools/test_es.js
+  + kit/tools/test_es.py
+  + kit/tools/test_live_adjustments_rescan.js
+  ~ apps/ambient_config/app.json
+  ~ apps/ambient_config/lever.js
+  ~ apps/ambient_config/main.js
+  ~ apps/live_adjustments/app.json
+  ~ apps/live_adjustments/main.js
+  ~ apps/service/main.js
+  ~ kit/runtime/display.js
+  ~ kit/runtime/i18n.js
+  ~ kit/runtime/mgu.js
+  ~ kit/tools/build.py
+  ~ kit/tools/hu-stub.js
+  ~ kit/tools/locale-revisions.json
+  ~ kit/tools/localize.py
+  ~ kit/tools/make_kit.py
+  ~ kit/tools/sync_locales.py
+  ~ kit/tools/test_ambient_lever.js
+  ~ kit/tools/test_runtime.js
 kept as they are here: mgu-repo.json
 our change kept in: kit/tools/localize.py
 
-copied 0 files
+copied 29 files
+
+17 files changed here and upstream, took the upstream's:
+  apps/ambient_config/app.json
+  apps/ambient_config/lever.js
+  apps/ambient_config/main.js
+  apps/live_adjustments/app.json
+  apps/live_adjustments/main.js
+  apps/service/main.js
+  kit/runtime/display.js
+  kit/runtime/i18n.js
+  kit/runtime/mgu.js
+  kit/tools/build.py
+  kit/tools/hu-stub.js
+  kit/tools/locale-revisions.json
+  kit/tools/localize.py
+  kit/tools/make_kit.py
+  kit/tools/sync_locales.py
+  kit/tools/test_ambient_lever.js
+  kit/tools/test_runtime.js
