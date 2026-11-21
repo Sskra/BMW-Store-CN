@@ -1,6 +1,33 @@
 fetching https://codeload.github.com/cauliflowermossgrape/idrive7-apps/tar.gz/refs/heads/main
-upstream: 0 new, 0 changed, 0 only here
+upstream: 7 new, 9 changed, 0 only here
+  + kit/localization/credit.zh-TW.json
+  + kit/localization/fonts/OFL-NotoSansTC.txt
+  + kit/localization/fonts/cjk-zh-TW.json
+  + kit/runtime/locales/zh-TW.json
+  + kit/runtime/locales/zh-TW.tsv
+  + kit/tools/test_zh_TW.js
+  + kit/tools/test_zh_TW.py
+  ~ apps/ambient_config/app.json
+  ~ apps/ambient_config/lights.js
+  ~ apps/ambient_config/main.js
+  ~ kit/runtime/i18n.js
+  ~ kit/tools/bake_cjk.py
+  ~ kit/tools/build.py
+  ~ kit/tools/locale-revisions.json
+  ~ kit/tools/sync_locales.py
+  ~ kit/tools/test_ambient_rgb.js
 kept as they are here: mgu-repo.json
 our change kept in: kit/tools/localize.py
 
-copied 0 files
+copied 16 files
+
+9 files changed here and upstream, took the upstream's:
+  apps/ambient_config/app.json
+  apps/ambient_config/lights.js
+  apps/ambient_config/main.js
+  kit/runtime/i18n.js
+  kit/tools/bake_cjk.py
+  kit/tools/build.py
+  kit/tools/locale-revisions.json
+  kit/tools/sync_locales.py
+  kit/tools/test_ambient_rgb.js
