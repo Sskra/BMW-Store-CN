@@ -1,42 +1,6 @@
 fetching https://codeload.github.com/cauliflowermossgrape/idrive7-apps/tar.gz/refs/heads/main
-upstream: 4 new, 15 changed, 0 only here
-  + apps/draggy/roll_timer.js
-  + apps/draggy/shifts.js
-  + apps/draggy/slope.js
-  + apps/draggy/weather.js
-  ~ apps/draggy/app.json
-  ~ apps/draggy/demo.js
-  ~ apps/draggy/main.js
-  ~ kit/runtime/car.js
-  ~ kit/runtime/locales/es.json
-  ~ kit/runtime/locales/es.tsv
-  ~ kit/runtime/locales/ko.json
-  ~ kit/runtime/locales/ko.tsv
-  ~ kit/runtime/locales/ru.json
-  ~ kit/runtime/locales/ru.tsv
-  ~ kit/runtime/locales/zh-CN.json
-  ~ kit/runtime/locales/zh-CN.tsv
-  ~ kit/runtime/locales/zh-TW.json
-  ~ kit/runtime/locales/zh-TW.tsv
-  ~ kit/tools/test_draggy.js
+upstream: 0 new, 0 changed, 0 only here
 kept as they are here: mgu-repo.json
 our change kept in: kit/tools/localize.py
 
-copied 19 files
-
-15 files changed here and upstream, took the upstream's:
-  apps/draggy/app.json
-  apps/draggy/demo.js
-  apps/draggy/main.js
-  kit/runtime/car.js
-  kit/runtime/locales/es.json
-  kit/runtime/locales/es.tsv
-  kit/runtime/locales/ko.json
-  kit/runtime/locales/ko.tsv
-  kit/runtime/locales/ru.json
-  kit/runtime/locales/ru.tsv
-  kit/runtime/locales/zh-CN.json
-  kit/runtime/locales/zh-CN.tsv
-  kit/runtime/locales/zh-TW.json
-  kit/runtime/locales/zh-TW.tsv
-  kit/tools/test_draggy.js
+copied 0 files
