@@ -56,6 +56,7 @@ const HudDraw = require('./hud-draw');
 const GearboxTemp = require('./gearbox');
 const KnockWatch = require('./knock');
 const FuelWatch = require('./fuel');
+const { DmeGear } = require('./dmegear');
 const TwinDme = require('./kit/twin_dme');
 const PowerLog = require('./powerlog');
 const Electrical = require('./electrical');
@@ -107,8 +108,34 @@ function migrateSettings(settings, log) {
     } catch (e) { log.warn('settings migration: ' + e); }
 }
 
+/**
+ * Started with the head unit (app.json "autostart", #207): everything runs at once when the HUD is on, so the HUD
+ * is back after a restart or a long sleep without opening the app. With the HUD off it stays idle (nothing watched
+ * or asked) until the page is first shown or the HUD is switched on. Opened from its tile: at once, as before.
+ */
+async function lazyStart(ctx) {
+    const { ui, settings, log } = ctx;
+    const hudOn = () => settings.get('hud') === 'on';
+    const atBoot = ctx.app && String(ctx.app.startReason) === 'AUTOSTART';
+    if (!atBoot || hudOn() || (ui.isVisible && ui.isVisible('MAIN'))) return runRedline(ctx);
+    log.info('started with the head unit, the HUD off: idle until opened or the HUD is switched on');
+    let done = false;
+    const go = (why) => {
+        if (done) return;
+        done = true;
+        log.info('starting now (' + why + ')');
+        runRedline(ctx).catch((e) => log.error('start: ' + (e && e.stack || e)));
+    };
+    if (ui.onVisible) ui.onVisible((name, on) => { if (name === 'MAIN' && on) go('opened'); });
+    settings.onChange((key) => { if (key === 'hud' && hudOn()) go('HUD on'); });
+}
+
 mgu.run({
-    async start(ctx) {
+    start: lazyStart,
+});
+
+async function runRedline(ctx) {
+    {
         // redline.log kept small: the same kind of line at most every 10 minutes (quietlog.js); every part
         // below logs through this
         ctx.log = QuietLog.wrap(ctx.log);
@@ -204,6 +231,14 @@ mgu.run({
             Object.keys(set).forEach((iface) => { merged[iface] = Object.assign(merged[iface] || {}, set[iface]); });
         });
         car = new Car(ctx, ['rpm', 'speed', 'temps', 'gear', 'condition'], merged);
+        // a car that sends no gear (a manual, #209): the engine unit's own, asked only while Redline's page or HUD is
+        // in use, the engine running and the car still sending none (an automatic's gearbox gear is never replaced)
+        const dmeGear = new DmeGear(ctx, () => gearbox.diag());
+        car.gearSource = () => dmeGear.value();
+        setInterval(() => {
+            const d = car.data(), inUse = ui.isVisible('MAIN') || settings.get('hud') === 'on';
+            if (inUse && !d.demo && (d.gearGuessed || d.gearFrom === 'engine') && G.isNum(d.rpm) && d.rpm > 400) dmeGear.start(); else dmeGear.stop();
+        }, 1000);
 
         /* ---------- derived limits ----------
          * Redline, first that has one: the "Redline" setting, the limit learned from the limiter
@@ -465,6 +500,11 @@ mgu.run({
         function drawTach(cv, t, d, now) {
             const sp = shiftPoint(d.oil, d.gear);
             background(cv, t);
+            // the cold guard on: the track from the lowered shift point to the redline faded yellow, as an M car's (#194)
+            if (sp.cold && sp.rpm < redline()) {
+                band(cv, sp.rpm, redline(), withAlpha(t.warn, 0.28));
+                for (let r = Math.ceil(sp.rpm / 500) * 500; r < redline(); r += 500) gapAt(cv, r, t.bg);
+            }
             const sx = BAR.x0 + barX(sp.rpm);                                                   // shift point mark
             cv.fillRect(sx + BAR.slant - 2, BAR.y0 - 14, 4, 12, t.warn);
             const rpm = d.rpm;
@@ -1169,5 +1209,5 @@ mgu.run({
             })),
         });
         render().then(() => log.info('first frame done')).catch((e) => log.warn('first render: ' + e));
-    },
-});
+    }
+}

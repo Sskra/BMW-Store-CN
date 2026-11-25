@@ -166,10 +166,10 @@ async function background(bg) {
     signals.watch('de.bmw.body.DoorsWindowsRoofMirrors', '1', { CentralLockingSystemAndPanelStatus: (v) => control.doors(doorsOf(v)) }, log)
         .catch((e) => log.warn('doors: ' + (e && e.message || e)));
     settings.onChange((key) => {
-        if (key === 'nightDim') control.night(control._night);
+        if (key === 'nightDim' || key === 'dayOff') control.night(null);
         if (key === 'decorWith') { S.setDecor(settings.get('decorWith')); lights.redraw(); }
         if (key === 'follow') control.apply();
-        if (key === 'turnGlow' || key === 'doorRed' || key === 'hazardRed' || key === 'drive') control.signals();
+        if (key === 'turnGlow' || key === 'doorRed' || key === 'hazardRed' || key === 'drive' || key === 'blinkBoth') control.signals();
         if (key === 'doorCar') control.carDoorSetting();
     });
     const others = new Others({ log }).start();
