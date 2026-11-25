@@ -1,55 +1,16 @@
 fetching https://codeload.github.com/cauliflowermossgrape/idrive7-apps/tar.gz/refs/heads/main
-upstream: 1 new, 23 changed, 0 only here
-  + apps/ambient_config/carview.js
-  ~ apps/ambient_config/app.json
-  ~ apps/ambient_config/cabin.js
-  ~ apps/ambient_config/main.js
-  ~ apps/brake_test/app.json
-  ~ apps/car_vitals/app.json
-  ~ apps/doom/app.json
-  ~ apps/draggy/app.json
-  ~ apps/dtc_scanner/app.json
-  ~ apps/dyno/app.json
+upstream: 0 new, 4 changed, 0 only here
   ~ apps/edrive/app.json
   ~ apps/edrive/fastkw.js
-  ~ apps/gforce/app.json
-  ~ apps/live_adjustments/app.json
-  ~ apps/live_data/app.json
-  ~ apps/redline/app.json
-  ~ apps/redline/main.js
-  ~ apps/service/app.json
-  ~ apps/warmup/app.json
-  ~ apps/zf8hp/app.json
-  ~ kit/runtime/display.js
-  ~ kit/runtime/gauges.js
+  ~ apps/edrive/live.js
   ~ kit/tools/test_fastkw.js
-  ~ kit/tools/test_zh.js
 kept as they are here: mgu-repo.json
 our change kept in: kit/tools/localize.py
 
-copied 24 files
+copied 4 files
 
-23 files changed here and upstream, took the upstream's:
-  apps/ambient_config/app.json
-  apps/ambient_config/cabin.js
-  apps/ambient_config/main.js
-  apps/brake_test/app.json
-  apps/car_vitals/app.json
-  apps/doom/app.json
-  apps/draggy/app.json
-  apps/dtc_scanner/app.json
-  apps/dyno/app.json
+4 files changed here and upstream, took the upstream's:
   apps/edrive/app.json
   apps/edrive/fastkw.js
-  apps/gforce/app.json
-  apps/live_adjustments/app.json
-  apps/live_data/app.json
-  apps/redline/app.json
-  apps/redline/main.js
-  apps/service/app.json
-  apps/warmup/app.json
-  apps/zf8hp/app.json
-  kit/runtime/display.js
-  kit/runtime/gauges.js
+  apps/edrive/live.js
   kit/tools/test_fastkw.js
-  kit/tools/test_zh.js
