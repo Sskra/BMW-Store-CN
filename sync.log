@@ -1,117 +1,88 @@
 fetching https://codeload.github.com/cauliflowermossgrape/idrive7-apps/tar.gz/refs/heads/main
-upstream: 21 new, 44 changed, 0 only here
-  + apps/ambient_config/lamps.js
-  + apps/ambient_config/presets.js
-  + apps/ambient_config/seqview.js
-  + apps/car_vitals/blend.js
-  + apps/dtc_scanner/context.js
-  + kit/runtime/drivelog.js
-  + kit/runtime/kitpages.js
-  + kit/runtime/panic.js
-  + kit/runtime/safeboot.js
-  + kit/tools/kit_harness.js
-  + kit/tools/test_ambient_lamps.js
-  + kit/tools/test_blend.js
-  + kit/tools/test_drivelog.js
-  + kit/tools/test_dtc_texts.js
-  + kit/tools/test_fault_context.js
-  + kit/tools/test_faults_qr.js
-  + kit/tools/test_health_report.js
-  + kit/tools/test_panic.js
-  + kit/tools/test_results_qr.js
-  + kit/tools/test_safe_boot.js
-  + kit/tools/test_scan_compare.js
-  ~ apps/ambient_config/app.json
-  ~ apps/ambient_config/lights.js
-  ~ apps/ambient_config/main.js
-  ~ apps/ambient_config/strobe.js
-  ~ apps/brake_test/app.json
-  ~ apps/brake_test/main.js
-  ~ apps/car_vitals/app.json
-  ~ apps/car_vitals/main.js
-  ~ apps/doom/app.json
-  ~ apps/draggy/app.json
-  ~ apps/draggy/main.js
+upstream: 38 new, 21 changed, 0 only here
+  + apps/dtc_scanner/devreport.js
+  + apps/dtc_scanner/dme_ids.js
+  + apps/dtc_scanner/plausibility.js
+  + apps/dtc_scanner/plausibility_view.js
+  + apps/gforce/bbview.js
+  + apps/gforce/recorder.js
+  + apps/live_data/hunter.js
+  + apps/live_data/hunter_demo.js
+  + apps/live_data/hunter_fields.js
+  + apps/live_data/hunter_tab.js
+  + apps/live_data/hunter_view.js
+  + apps/live_data/hunter_windows.js
+  + apps/redline/kickdown.js
+  + apps/redline/shiftdemo.js
+  + apps/redline/shiftlab.js
+  + apps/redline/shiftpages.js
+  + apps/service/battery_log.js
+  + apps/service/battery_read.js
+  + apps/service/battery_view.js
+  + apps/service/extras.js
+  + apps/service/garage.js
+  + apps/service/garage_view.js
+  + apps/service/more.js
+  + apps/service/own_items.js
+  + apps/service/own_view.js
+  + apps/service/own_wear.js
+  + apps/service/own_wheels.js
+  + apps/warmup/diff.js
+  + apps/warmup/drives.js
+  + apps/warmup/ready.js
+  + kit/tools/gen_signal_hunter.js
+  + kit/tools/test_dev_report.js
+  + kit/tools/test_faults_plausibility.js
+  + kit/tools/test_gforce_recorder.js
+  + kit/tools/test_gforce_recordings.js
+  + kit/tools/test_redline_shiftlab.js
+  + kit/tools/test_service_more.js
+  + kit/tools/test_signal_hunter.js
   ~ apps/dtc_scanner/app.json
   ~ apps/dtc_scanner/main.js
-  ~ apps/dyno/app.json
-  ~ apps/dyno/main.js
-  ~ apps/edrive/app.json
   ~ apps/gforce/app.json
   ~ apps/gforce/main.js
-  ~ apps/live_adjustments/app.json
-  ~ apps/live_adjustments/main.js
   ~ apps/live_data/README.md
   ~ apps/live_data/app.json
   ~ apps/live_data/main.js
-  ~ apps/live_data/screens.js
-  ~ apps/live_data/useful.js
+  ~ apps/redline/README.md
   ~ apps/redline/app.json
+  ~ apps/redline/main.js
   ~ apps/service/app.json
   ~ apps/service/main.js
   ~ apps/warmup/app.json
   ~ apps/warmup/main.js
-  ~ apps/zf8hp/app.json
-  ~ kit/runtime/hud_claim.js
-  ~ kit/runtime/mgu.js
-  ~ kit/runtime/qrlog.js
-  ~ kit/runtime/renderd.js
-  ~ kit/runtime/sheet.js
-  ~ kit/tools/emu.js
-  ~ kit/tools/hu-stub.js
-  ~ kit/tools/test_ambient_rgb.js
-  ~ kit/tools/test_ambient_strobe.js
+  ~ kit/runtime/drivelog.js
+  ~ kit/tools/test_drivelog.js
   ~ kit/tools/test_dtc_idle.js
-  ~ kit/tools/test_hud_claim.js
-  ~ kit/tools/test_live_data.js
+  ~ kit/tools/test_health_report.js
+  ~ kit/tools/test_service.js
+  ~ kit/tools/test_service_engine.js
   ~ kit/tools/test_warmup.js
 kept as they are here: mgu-repo.json
 our change kept in: kit/tools/localize.py
 
-copied 65 files
+copied 59 files
 
-44 files changed here and upstream, took the upstream's:
-  apps/ambient_config/app.json
-  apps/ambient_config/lights.js
-  apps/ambient_config/main.js
-  apps/ambient_config/strobe.js
-  apps/brake_test/app.json
-  apps/brake_test/main.js
-  apps/car_vitals/app.json
-  apps/car_vitals/main.js
-  apps/doom/app.json
-  apps/draggy/app.json
-  apps/draggy/main.js
+21 files changed here and upstream, took the upstream's:
   apps/dtc_scanner/app.json
   apps/dtc_scanner/main.js
-  apps/dyno/app.json
-  apps/dyno/main.js
-  apps/edrive/app.json
   apps/gforce/app.json
   apps/gforce/main.js
-  apps/live_adjustments/app.json
-  apps/live_adjustments/main.js
   apps/live_data/README.md
   apps/live_data/app.json
   apps/live_data/main.js
-  apps/live_data/screens.js
-  apps/live_data/useful.js
+  apps/redline/README.md
   apps/redline/app.json
+  apps/redline/main.js
   apps/service/app.json
   apps/service/main.js
   apps/warmup/app.json
   apps/warmup/main.js
-  apps/zf8hp/app.json
-  kit/runtime/hud_claim.js
-  kit/runtime/mgu.js
-  kit/runtime/qrlog.js
-  kit/runtime/renderd.js
-  kit/runtime/sheet.js
-  kit/tools/emu.js
-  kit/tools/hu-stub.js
-  kit/tools/test_ambient_rgb.js
-  kit/tools/test_ambient_strobe.js
+  kit/runtime/drivelog.js
+  kit/tools/test_drivelog.js
   kit/tools/test_dtc_idle.js
-  kit/tools/test_hud_claim.js
-  kit/tools/test_live_data.js
+  kit/tools/test_health_report.js
+  kit/tools/test_service.js
+  kit/tools/test_service_engine.js
   kit/tools/test_warmup.js
